@@ -154,7 +154,7 @@ class ySaveSelected(QWidget):
 	    if len(fileName) == 0:
 	    	return
 
-	    print fileName
+
 
 	    filename = nodetype + "_"+ fileName
 
