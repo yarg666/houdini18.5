@@ -1,0 +1,8 @@
+Sop/attribdelete /opt/hfs17.5/houdini/otls/OPlibSop.hda
+Sop/attribdelete otls/OPlibSop.hda
+Sop/attribwrangle /opt/hfs17.5/houdini/otls/OPlibSop.hda
+Sop/attribwrangle otls/OPlibSop.hda
+Sop/color /opt/hfs17.5/houdini/otls/OPlibSop.hda
+Sop/color otls/OPlibSop.hda
+Sop/convertline /opt/hfs17.5/houdini/otls/OPlibSop.hda
+Sop/convertline otls/OPlibSop.hda

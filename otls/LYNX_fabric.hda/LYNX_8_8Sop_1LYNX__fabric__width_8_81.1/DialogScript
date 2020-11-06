@@ -1,0 +1,169 @@
+# Dialog script for LYNX::LYNX_fabric_width::1.1 automatically generated
+
+{
+    name	LYNX::LYNX_fabric_width::1.1
+    script	LYNX::LYNX_fabric_width::1.1
+    label	"LYNX fabric width"
+
+    help {
+	""
+    }
+
+    inputlabel	1	Fiber
+    inputlabel	2	"Sub-Network Input #2"
+    inputlabel	3	"Sub-Network Input #3"
+    inputlabel	4	"Sub-Network Input #4"
+    outputlabel	1	Fiber
+
+    parm {
+        name    "grouptype"
+        label   "Group Type"
+        type    string
+        invisible
+        default { "points" }
+        menu {
+            "points"    "Points"
+        }
+    }
+    groupsimple {
+        name    "fabric_settings_folder"
+        label   "Fabric"
+        grouptag { "group_type" "simple" }
+
+        groupsimple {
+            name    "fabric_general_settings"
+            label   "General"
+
+            parm {
+                name    "fabric_mask"
+                label   "Mask"
+                type    string
+                default { "" }
+                menureplace {
+                    [ "menuitem = []" ]
+                    [ "n_path = hou.pwd().path()" ]
+                    [ "n_IN_DATA = hou.node(n_path+\"/IN_Data\")" ]
+                    [ "n_IN_DATA_geometry = n_IN_DATA.geometry()" ]
+                    [ "n_IN_DATA_geometry_pointGroups = n_IN_DATA_geometry.pointGroups()" ]
+                    [ "if n_IN_DATA_geometry_pointGroups!=():" ]
+                    [ "    for attrib in n_IN_DATA_geometry_pointGroups:" ]
+                    [ "        menuitem.append(attrib.name())" ]
+                    [ "        menuitem.append(attrib.name())" ]
+                    [ "            " ]
+                    [ "return menuitem" ]
+                    language python
+                }
+                parmtag { "script_action" "import soputils\nkwargs['geometrytype'] = kwargs['node'].parmTuple('grouptype')\nkwargs['inputindex'] = 0\nsoputils.selectGroupParm(kwargs)" }
+                parmtag { "script_action_help" "Select point group from an available viewport." }
+                parmtag { "script_action_icon" "BUTTONS_reselect" }
+            }
+        }
+
+        groupsimple {
+            name    "fabric_fiber_folder"
+            label   "Fiber"
+            grouptag { "group_type" "simple" }
+
+            groupsimple {
+                name    "fabric_fiber_width_folder"
+                label   "Width"
+                grouptag { "group_type" "simple" }
+
+                parm {
+                    name    "fabric_fiber_width"
+                    label   "Width"
+                    type    float
+                    default { "1" }
+                    range   { 0! 2 }
+                }
+                parm {
+                    name    "fabric_fiber_width_remap_reverse"
+                    label   "Reverse"
+                    type    toggle
+                    joinnext
+                    default { "0" }
+                    range   { 0 10 }
+                }
+                parm {
+                    name    "fabric_fiber_width_remap"
+                    label   "Width Along Fiber"
+                    type    ramp_flt
+                    default { "2" }
+                    range   { 1! 10 }
+                    parmtag { "rampbasisdefault" "bspline" }
+                    parmtag { "rampshowcontrolsdefault" "0" }
+                }
+                groupsimple {
+                    name    "fabric_fiber_width_random_folder"
+                    label   "Randomize"
+                    grouptag { "group_type" "simple" }
+
+                    parm {
+                        name    "fabric_fiber_width_random_seed"
+                        label   "Seed"
+                        type    float
+                        joinnext
+                        default { "0" }
+                        range   { 0 10 }
+                    }
+                    parm {
+                        name    "fabric_fiber_width_random_min"
+                        label   "Min"
+                        type    float
+                        joinnext
+                        default { "1" }
+                        range   { 0! 2 }
+                    }
+                    parm {
+                        name    "fabric_fiber_width_random_max"
+                        label   "Max"
+                        type    float
+                        default { "1" }
+                        range   { 0! 2 }
+                    }
+                }
+
+                groupsimple {
+                    name    "fabric_fiber_width_noise_folder"
+                    label   "Noise"
+                    grouptag { "group_type" "simple" }
+
+                    parm {
+                        name    "fabric_fiber_width_noise_scale"
+                        label   "Scale"
+                        type    float
+                        joinnext
+                        default { "10" }
+                        range   { 0 50 }
+                    }
+                    parm {
+                        name    "fabric_fiber_width_noise_offset"
+                        label   "Offset"
+                        type    float
+                        default { "0" }
+                        range   { -10 10 }
+                    }
+                    parm {
+                        name    "fabric_fiber_width_noise_min"
+                        label   "Min"
+                        type    float
+                        joinnext
+                        default { "1" }
+                        range   { 0 2 }
+                    }
+                    parm {
+                        name    "fabric_fiber_width_noise_max"
+                        label   "Max"
+                        type    float
+                        default { "1" }
+                        range   { 0 2 }
+                    }
+                }
+
+            }
+
+        }
+
+    }
+
+}

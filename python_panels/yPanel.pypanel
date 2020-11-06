@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pythonPanelDocument>
+  <!-- This file contains definitions of Python interfaces and the
+ interfaces menu.  It should not be hand-edited when it is being
+ used by the application.  Note, that two definitions of the
+ same interface or of the interfaces menu are not allowed
+ in a single file. -->
+  <interface name="yPanel" label="yPanel" icon="DOP_instancedobject" showNetworkNavigationBar="false" help_url="">
+    <script><![CDATA[
+
+import yProjectManager
+reload(yProjectManager)
+
+import ySaveSelected
+reload (ySaveSelected)
+
+import yCacheManager
+reload (yCacheManager)
+
+import yVex
+reload (yVex)
+
+
+import PySide2.QtWidgets as QtGuiWidgets
+
+def onCreateInterface():    
+    tabs = QtGuiWidgets.QTabWidget()
+    tabs.addTab(yProjectManager.yProjectManagerClass(), 'yProjectManager')
+    tabs.addTab(yCacheManager.yCacheManagerClass(),'yCacheManager')
+    tabs.addTab(ySaveSelected.ySaveSelected(),'ySaveSelected')
+    tabs.addTab(yVex.yVex(),'yVex')
+
+    layout = QtGuiWidgets.QVBoxLayout()
+    layout.addWidget(tabs)
+    
+    baseWidget = QtGuiWidgets.QWidget()
+    baseWidget.setLayout(layout)
+    
+    return baseWidget
+]]></script>
+    <includeInToolbarMenu menu_position="100" create_separator="false"/>
+    <help><![CDATA[]]></help>
+  </interface>
+</pythonPanelDocument>

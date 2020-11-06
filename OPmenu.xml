@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menuDocument>
+	<menu>
+		<scriptItem id="get_last_version">
+		<label>CG A7 get last version</label>
+		<expression>
+		node = kwargs.get("node", None)
+		if node is None:
+			return False
+		return node.type().nameComponents()[1] == "CG"
+		</expression>
+		<scriptCode>
+<![CDATA[
+import cgHdaUtils
+cgHdaUtils.updateA7(kwargs.get("node", None))
+]]>
+</scriptCode>
+		</scriptItem>
+		<separatorItem/>
+	</menu>
+</menuDocument>

@@ -1,0 +1,7 @@
+# LYNX_analytics | For more info, including how to disable this please visit https://github.com/LucaScheller/VFX-LYNX
+
+try:
+    import LYNX_analytics_houdini 
+    LYNX_analytics_houdini.node_OnCreated(kwargs["node"])
+except:
+    pass

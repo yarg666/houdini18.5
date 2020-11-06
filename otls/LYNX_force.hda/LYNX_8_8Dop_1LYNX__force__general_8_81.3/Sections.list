@@ -1,0 +1,16 @@
+""
+DialogScript	DialogScript
+CreateScript	CreateScript
+TypePropertiesOptions	TypePropertiesOptions
+Help	Help
+Tools.shelf	Tools.shelf
+InternalFileOptions	InternalFileOptions
+Contents.gz	Contents.gz
+Version	Version
+IconSVG	IconSVG
+PythonModule	PythonModule
+PreFirstCreate	PreFirstCreate
+PostLastDelete	PostLastDelete
+OnCreated	OnCreated
+ExtraFileOptions	ExtraFileOptions
+LYNX__logo.svg	LYNX_logo.svg

@@ -1,0 +1,252 @@
+Operator:     LYNX::LYNX_fabric_width::1.0
+Label:        LYNX fabric width
+Path:         oplib:/LYNX::Sop/LYNX_fabric_width::1.0?LYNX::Sop/LYNX_fabric_width::1.0
+Icon:         opdef:/LYNX::Sop/LYNX_fabric_width::1.0?IconImage
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       1 to 1
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Tue Mar 12 09:27:20 2019
+
+Operator:     LYNX::LYNX_fabric_convert::1.0
+Label:        LYNX fabric convert
+Path:         oplib:/LYNX::Sop/LYNX_fabric_convert::1.0?LYNX::Sop/LYNX_fabric_convert::1.0
+Icon:         opdef:/LYNX::Sop/LYNX_fabric_convert::1.0?IconImage
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       2 to 2
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Mon Apr 15 08:30:10 2019
+
+Operator:     LYNX::LYNX_fabric_pattern::1.0
+Label:        LYNX fabric pattern
+Path:         oplib:/LYNX::Sop/LYNX_fabric_pattern::1.0?LYNX::Sop/LYNX_fabric_pattern::1.0
+Icon:         opdef:/LYNX::Sop/LYNX_fabric_pattern::1.0?IconImage
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       0 to 1
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Thu Mar 14 01:12:51 2019
+
+Operator:     LYNX::LYNX_fabric_resample::1.0
+Label:        LYNX fabric resample
+Path:         oplib:/LYNX::Sop/LYNX_fabric_resample::1.0?LYNX::Sop/LYNX_fabric_resample::1.0
+Icon:         opdef:/LYNX::Sop/LYNX_fabric_resample::1.0?IconImage
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       1 to 2
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Mon Apr  1 11:43:38 2019
+
+Operator:     LYNX::LYNX_fabric_detangle::1.0
+Label:        LYNX fabric detangle
+Path:         oplib:/LYNX::Sop/LYNX_fabric_detangle::1.0?LYNX::Sop/LYNX_fabric_detangle::1.0
+Icon:         opdef:/LYNX::Sop/LYNX_fabric_detangle::1.0?IconImage
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       1 to 1
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Mon Apr  1 11:44:45 2019
+
+Operator:     LYNX::LYNX_fabric_thread::1.0
+Label:        LYNX fabric thread
+Path:         oplib:/LYNX::Sop/LYNX_fabric_thread::1.0?LYNX::Sop/LYNX_fabric_thread::1.0
+Icon:         opdef:/LYNX::Sop/LYNX_fabric_thread::1.0?IconImage
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       2 to 2
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Mon Apr  1 11:45:05 2019
+
+Operator:     LYNX::LYNX_fabric_weave::1.0
+Label:        LYNX fabric weave
+Path:         oplib:/LYNX::Sop/LYNX_fabric_weave::1.0?LYNX::Sop/LYNX_fabric_weave::1.0
+Icon:         opdef:/LYNX::Sop/LYNX_fabric_weave::1.0?IconImage
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       2 to 2
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Tue May 28 15:29:53 2019
+
+Operator:     LYNX::LYNX_fabric_thread_profile::1.0
+Label:        LYNX fabric thread profile
+Path:         oplib:/LYNX::Sop/LYNX_fabric_thread_profile::1.0?LYNX::Sop/LYNX_fabric_thread_profile::1.0
+Icon:         opdef:/LYNX::Sop/LYNX_fabric_thread_profile::1.0?IconImage
+Table:        Sop
+License:      
+Extra:        guide=./OUT_Guide 
+User:         
+Inputs:       0 to 2
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Tue Mar 12 10:11:12 2019
+
+Operator:     LYNX::LYNX_fabric_pattern::1.1
+Label:        LYNX fabric pattern
+Path:         oplib:/LYNX::Sop/LYNX_fabric_pattern::1.1?LYNX::Sop/LYNX_fabric_pattern::1.1
+Icon:         opdef:/LYNX::Sop/LYNX_fabric_pattern::1.1?IconSVG
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       0 to 1
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Fri Oct 11 16:36:24 2019
+
+Operator:     LYNX::LYNX_fabric_resample::1.1
+Label:        LYNX fabric resample
+Path:         oplib:/LYNX::Sop/LYNX_fabric_resample::1.1?LYNX::Sop/LYNX_fabric_resample::1.1
+Icon:         opdef:/LYNX::Sop/LYNX_fabric_resample::1.1?IconSVG
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       1 to 2
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Fri Aug 30 00:01:59 2019
+
+Operator:     LYNX::LYNX_fabric_thread::1.1
+Label:        LYNX fabric thread
+Path:         oplib:/LYNX::Sop/LYNX_fabric_thread::1.1?LYNX::Sop/LYNX_fabric_thread::1.1
+Icon:         opdef:/LYNX::Sop/LYNX_fabric_thread::1.1?IconSVG
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       2 to 2
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Thu Sep 12 00:11:39 2019
+
+Operator:     LYNX::LYNX_fabric_thread_profile::1.1
+Label:        LYNX fabric thread profile
+Path:         oplib:/LYNX::Sop/LYNX_fabric_thread_profile::1.1?LYNX::Sop/LYNX_fabric_thread_profile::1.1
+Icon:         opdef:/LYNX::Sop/LYNX_fabric_thread_profile::1.1?IconSVG
+Table:        Sop
+License:      
+Extra:        guide=./OUT_Guide 
+User:         
+Inputs:       0 to 2
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Fri Aug 30 00:00:39 2019
+
+Operator:     LYNX::LYNX_fabric_weave::1.1
+Label:        LYNX fabric weave
+Path:         oplib:/LYNX::Sop/LYNX_fabric_weave::1.1?LYNX::Sop/LYNX_fabric_weave::1.1
+Icon:         opdef:/LYNX::Sop/LYNX_fabric_weave::1.1?IconSVG
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       2 to 2
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Wed Sep 25 16:56:09 2019
+
+Operator:     LYNX::LYNX_fabric_width::1.1
+Label:        LYNX fabric width
+Path:         oplib:/LYNX::Sop/LYNX_fabric_width::1.1?LYNX::Sop/LYNX_fabric_width::1.1
+Icon:         opdef:/LYNX::Sop/LYNX_fabric_width::1.1?IconSVG
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       1 to 1
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Fri Aug 30 00:28:13 2019
+
+Operator:     LYNX::LYNX_fabric_convert::1.1
+Label:        LYNX fabric convert
+Path:         oplib:/LYNX::Sop/LYNX_fabric_convert::1.1?LYNX::Sop/LYNX_fabric_convert::1.1
+Icon:         opdef:/LYNX::Sop/LYNX_fabric_convert::1.1?IconSVG
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       1 to 2
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Mon Oct  7 10:00:15 2019
+
+Operator:     LYNX::LYNX_fabric_detangle::1.1
+Label:        LYNX fabric detangle
+Path:         oplib:/LYNX::Sop/LYNX_fabric_detangle::1.1?LYNX::Sop/LYNX_fabric_detangle::1.1
+Icon:         opdef:/LYNX::Sop/LYNX_fabric_detangle::1.1?IconSVG
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       1 to 1
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Sat Jun  8 20:23:48 2019
+
+Operator:     LYNX::LYNX_fabric_color::1.0
+Label:        LYNX fabric color
+Path:         oplib:/LYNX::Sop/LYNX_fabric_color::1.0?LYNX::Sop/LYNX_fabric_color::1.0
+Icon:         opdef:/LYNX::Sop/LYNX_fabric_color::1.0?IconSVG
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       1 to 1
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Wed Jul  3 12:56:04 2019
+
+Operator:     LYNX::LYNX_fabric_color::1.1
+Label:        LYNX fabric color
+Path:         oplib:/LYNX::Sop/LYNX_fabric_color::1.1?LYNX::Sop/LYNX_fabric_color::1.1
+Icon:         opdef:/LYNX::Sop/LYNX_fabric_color::1.1?IconSVG
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       1 to 1
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Tue Oct  8 23:08:25 2019
+

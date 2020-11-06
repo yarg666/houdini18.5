@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pythonPanelDocument>
+  <!-- This file contains definitions of Python interfaces and the
+ interfaces menu.  It should not be hand-edited when it is being
+ used by the application.  Note, that two definitions of the
+ same interface or of the interfaces menu are not allowed
+ in a single file. -->
+  <interfacesMenu type="toolbar">
+    <interfaceItem name="sesi_quick_start"/>
+    <interfaceItem name="ViewerStateBrowser"/>
+    <interfaceItem name="SceneGraphDetailsNewPanel"/>
+    <separatorItem/>
+    <separatorItem/>
+    <separatorItem/>
+    <separatorItem/>
+    <interfaceItem name="yPanel"/>
+    <separatorItem/>
+    <interfaceItem name="interface1"/>
+    <interfaceItem name="interface2"/>
+  </interfacesMenu>
+  <interface name="interface1" label="New Python Interface" icon="MISC_python" showNetworkNavigationBar="false" help_url="">
+    <script><![CDATA[import yProjectManagerBeta
+reload(yProjectManagerBeta)
+
+import ySaveSelected
+reload (ySaveSelected)
+
+import yCacheManagerBeta
+reload (yCacheManagerBeta)
+
+import PySide2.QtWidgets as QtGuiWidgets
+
+def onCreateInterface():    
+    tabs = QtGuiWidgets.QTabWidget()
+    tabs.addTab(yProjectManagerBeta.yProjectManagerClass(), 'yProjectManager')
+    tabs.addTab(yCacheManagerBeta.yCacheManagerClass(),'yCacheManager')
+    tabs.addTab(ySaveSelected.ySaveSelected(),'ySaveSelected')
+    
+    layout = QtGuiWidgets.QVBoxLayout()
+    layout.addWidget(tabs)
+    
+    baseWidget = QtGuiWidgets.QWidget()
+    baseWidget.setLayout(layout)
+    
+    return baseWidget]]></script>
+    <includeInToolbarMenu menu_position="411" create_separator="false"/>
+    <help><![CDATA[]]></help>
+  </interface>
+</pythonPanelDocument>
