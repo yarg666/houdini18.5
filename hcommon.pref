@@ -1,0 +1,7 @@
+autoIncrement := 2;
+autoSaveIncrement := 2;
+helpTags := 1;
+liveUpdates := 0;
+sendAnonymousStats := 1;
+startupPage := 1;
+timeStampToAskAboutAnonymousStats := -1;

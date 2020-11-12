@@ -1,0 +1,40 @@
+{
+	"stats":{
+		"start_time":1605190694,
+		"end_time":1605191001,
+		"idle_time":298,
+		"log_id":"0x86489AB4-0x748AC98C-0x5FAD4424-0x000001BD",
+		"persistent_stats":{
+		},
+		"flags":[
+		],
+		"counts":{
+			"start_page/window_opened":1
+		},
+		"logs":{
+		},
+		"sums_and_counts":{
+		},
+		"strings":{
+		},
+		"checksum":"3c801a3488ad0938c1e3025c7bcf18a7"
+	},
+	"machine_config":{
+		"houdini_major_version":"18",
+		"houdini_minor_version":"5",
+		"houdini_build_version":"351",
+		"application_name":"hindie",
+		"license_category":"Indie",
+		"platform":"linux-x86_64-gcc6.3",
+		"operating_system":"Ubuntu 18.04.5 LTS",
+		"number_of_processors":32,
+		"system_memory":"62.82 GB",
+		"graphics_card":"GeForce GTX 960/PCIe/SSE2",
+		"graphics_card_version":"4.6.0 NVIDIA 450.80.02",
+		"mac_address_hash":"ba2c23fb71e8a311c7ea392f2af99272",
+		"user_config_version":20140523,
+		"system_resolution":"1920x1080",
+		"cpu_info":"Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz",
+		"config_hash":"97209772f5711580822ef928a5a33319"
+	}
+}
