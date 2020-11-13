@@ -1,0 +1,2 @@
+misc.opencl_device.val := 0;
+misc.opencl_devicetype.val := 0;

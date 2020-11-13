@@ -1,0 +1,13 @@
+autosetassetresolvercontext := 0;
+defaultcollectionsprimpath := "/collections";
+defaultcollectionsprimtype := "";
+defaultlightsprimpath := "/lights";
+defaultmetersperunit := 0;
+defaultnewprimpath := "/$OS";
+defaulttransformsuffix := "$OS";
+defaultupaxis := "";
+loadpayloadsbydefault := 1;
+panesfollowcurrentnode := 1;
+panesshowviewportstage := 0;
+showresolvedpaths := 0;
+usesimplifiedlinkerui := 0;

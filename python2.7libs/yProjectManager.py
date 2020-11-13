@@ -8,7 +8,7 @@
 import yFonction
 reload(yFonction)
 from yFonction import *
-
+import time
 
 
 print "hello from yProjet"

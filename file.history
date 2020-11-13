@@ -1,0 +1,20 @@
+HIP
+{
+/media/vfx/testA/prout _v000.hiplc
+/media/vfx/testA/prout _v001.hiplc
+}
+OTL
+{
+/home/julien/houdini18.5/otls/.hda
+/home/julien/houdini18.5/otls/SOP_cg_splitByAttributes.otl
+/home/julien/houdini18.5/otls/superlaser.hda
+/home/julien/houdini18.5/otls/tab__delByLimit__2_0.hda
+/home/julien/houdini18.5/otls/laser.hda
+/home/julien/houdini18.5/otls/SOP_cgnull.hda
+/home/julien/houdini18.5/otls/tab__invertTransform__1_0.hda
+/home/julien/houdini18.5/otls/SOP_volumeDeformer.otl
+/home/julien/houdini18.5/otls/tab__killById__2_0.hda
+/home/julien/houdini18.5/otls/SOP_cg_axis_rotate.hda
+/home/julien/houdini18.5/otls/bnVdbOptimiser.hda
+/opt/hfs18.5.351/packages/kinefx/otls/OPlibKineFX.hda
+}

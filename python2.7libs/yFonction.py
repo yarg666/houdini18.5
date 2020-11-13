@@ -72,16 +72,27 @@ def yXml(pipe):
 	# faire le split du chemin
 	split = cheminHip.split("/")
 	#recuperrer touttes les variables
-	version = split[-1]
-	effet = split[-2]
-	user = split[-3]
-	shot = split[-6]
-	projet = split[-7]
-	path = cheminHip + "/" + nomFichier + ".hip"
+
+	if pipe == "CGEV":
+		version = split[-1]
+		effet = split[-2]
+		user = split[-3]
+		shot = split[-6]
+		projet = split[-7]
+		path = cheminHip + "/" + nomFichier + ".hip"
+	elif pipe == "HOME":
+		version = "0"
+		effet = "fx"
+		user = "jm"
+		shot = "0"
+		projet = split[-1]
+		path = cheminHip + "/" + nomFichier + ".hiplc"
+
 	time = str(datetime.datetime.now())[:-10]
 	# ouvrir xml et get roots
 	temp = yDictPipe[pipe]
 	xmlPath = temp[3]
+
 	tree = etree.parse(xmlPath)
 	tronc = tree.getroot()
 	#recuperer xprojet
@@ -91,6 +102,8 @@ def yXml(pipe):
 	if len(xprojet)==0:
 		xprojet = etree.Element("projet",{"name":projet})
 		tronc.append(xprojet)
+		print xprojet.attrib("name")
+
 	tree.write(xmlPath)
 	# recuperrer xinfo
 	tree = etree.parse(xmlPath)
