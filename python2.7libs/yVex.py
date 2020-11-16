@@ -22,11 +22,7 @@ class yVex(QWidget):
 		self.choisirB=QComboBox()
 		for i in yChoisirVex:
 			self.choisirB.addItem(i)
-		self.boutDeCode= QComboBox()
-		self.grosCode= QComboBox()
 		#ligne deux
-		self.boutDeCodeAdd= QPushButton("saveBoutdeCode")
-		self.grosCodeAdd= QPushButton("saveGrosCode")
 		#ligne trois 
 		self.codeEdit= QTextEdit()
 		#ligneQuatre
@@ -42,15 +38,12 @@ class yVex(QWidget):
 		self.tree = QTreeView()
 		#listView
 		self.list = QListView()
-
 		#layout
 		self.mainLayout=QGridLayout()
 		#layout	ligne un	
 		self.mainLayout.addWidget(self.saveCodeIn,0,0,1,2)
 		self.mainLayout.addWidget(self.choisirB,0,2,1,2)
 		#layout ligne deux
-		#self.mainLayout.addWidget(self.boutDeCodeAdd,1,0,1,2)
-		#self.mainLayout.addWidget(self.grosCodeAdd,1,2,1,2)
 		#layout ligne trois
 		self.mainLayout.addWidget(self.tree,2,0,1,2)
 		self.mainLayout.addWidget(self.codeEdit,2,2,1,2)	
@@ -89,7 +82,6 @@ class yVex(QWidget):
 	def openExpl(self):
 		yOpen(self.rootPath)
 
-
 	def saveCodeInF(self):
 		vexCode=self.codeEdit.toPlainText()
 		name = hou.ui.readInput("filename",buttons=("cancel","ok"),default_choice=1)
@@ -100,17 +92,6 @@ class yVex(QWidget):
 		fichier.write(vexCode)
 		fichier.close()
 		self.createModel()
-
-	def loadCode(self,listIndex,name):
-
-		fichier = open(self.rootPath+"/"+self.vexList[listIndex]+"/"+name+".txt", "r")
-		snippet = fichier.read()
-		fichier.close()
-		nodes = hou.selectedNodes()
-		
-		for i in nodes:
-			currentSnip = i.parm("snippet").eval()
-			i.setParms({"snippet":currentSnip+"\n"+snippet})	
 
 	def loadF(self,index):
 		filePath = self.model.filePath(index)
@@ -125,32 +106,24 @@ class yVex(QWidget):
 			currentSnip = i.parm("snippet").eval()
 			i.setParms({"snippet":currentSnip+"\n"+snippet})
 
+	def afficheTxt(self,index):
+		filePath = self.model.filePath(index)
+		fichier = open(filePath, "r")
+		snippet = fichier.read()
+		fichier.close()
+		print snippet
+		self.codeEdit.setText(snippet)
 
-	def saveBoutDeCode(self):
-		self.saveCode(0)
-
-	def loadBoutDeCode(self):
-		self.loadCode(0,self.boutDeCode.currentText())
-				
-	def saveGrosCode(self):
-		self.saveCode(1)
-
-	def loadGrosCode(self):
-		self.loadCode(1,self.grosCode.currentText())
 
 	def buttonConnect(self):
 		self.tree.doubleClicked.connect(self.loadF)
 		self.list.doubleClicked.connect(self.loadF)
-		#boutDeCode
-		self.saveCodeIn.clicked.connect(self.saveCodeInF)
-		self.boutDeCodeAdd.clicked.connect(self.saveBoutDeCode)
-		self.boutDeCode.activated.connect(self.loadBoutDeCode)
-		#grosCode
-		self.grosCodeAdd.clicked.connect(self.saveGrosCode)
-		self.grosCode.activated.connect(self.loadGrosCode)
+
+		self.tree.clicked.connect(self.afficheTxt)
+		self.list.clicked.connect(self.afficheTxt)
 		#autre
 		self.refresh.clicked.connect(self.createModel)
 		self.open.clicked.connect(self.openExpl)
 		self.racine.activated.connect(self.variable)
-		#self.racine.activated.connect(self.chargerLesScripts)
+
 
