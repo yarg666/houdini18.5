@@ -269,10 +269,13 @@ class yProjectManagerClass(QWidget):
 		if projetSelect=="PROJET":
 			pass
 		else:
-			for file in os.listdir(self.proj+projetSelect):
-				if file.endswith('.hip') or file.endswith('.hiplc') or file.endswith('.hipnc') :
-					hipPath = self.proj+projetSelect+"/"+file
-					self.tempList.append(hipPath)
+			try:
+				for file in os.listdir(self.proj+projetSelect):
+					if file.endswith('.hip') or file.endswith('.hiplc') or file.endswith('.hipnc') :
+						hipPath = self.proj+projetSelect+"/"+file
+						self.tempList.append(hipPath)
+			except:
+				return			
 		
 		#build liste effet sans doublons
 		myEffet=[]
