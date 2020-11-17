@@ -83,15 +83,62 @@ class yVex(QWidget):
 		yOpen(self.rootPath)
 
 	def saveCodeInF(self):
+		print "savecodeIn"
 		vexCode=self.codeEdit.toPlainText()
-		name = hou.ui.readInput("filename",buttons=("cancel","ok"),default_choice=1)
-		if name[0] == 0:
+		#menu name
+		filepath = self.rootPath + "/" +self.choisirB.currentText()
+		listName = os.listdir(filepath)
+		self.newList=[]
+		for i in listName:
+			self.newList.append(i.split(".")[0])
+		self.cancel = 0
+		self.userfilename = QDialog()
+		self.grid = QGridLayout()
+		self.userfilename.setLayout(self.grid)
+		self.nom = QLabel("choisir nom:",self.userfilename)
+		self.grid.addWidget(self.nom,1,0)
+		self.nomArchive = QLineEdit(self.userfilename)
+		self.grid.addWidget(self.nomArchive,1,1)
+		self.listNom = QComboBox()
+		self.listNom.addItem("ecrase un setup")
+		for i in self.newList:
+			self.listNom.addItem(i)
+		self.grid.addWidget(self.listNom,2,0,1,2)
+		self.okButton = QPushButton("ok")
+		self.grid.addWidget(self.okButton,3,0,1,1)
+		self.cancelB = QPushButton("cancel")
+		self.grid.addWidget(self.cancelB,3,1,1,1)
+		self.connectPopUp()
+		x = self.userfilename.exec_()
+		fileName = self.nomArchive.text()
+		if self.cancel == 1:
 			return
+		if len(fileName) == 0:
+			return	
+		#choisir cat
 		cat = self.choisirB.currentText()
-		fichier = open(self.rootPath+"/"+cat+"/"+name[1]+".txt", "a")
+		fichier = open(self.rootPath+"/"+cat+"/"+fileName+".txt", "a")
+		fichier.truncate(0)
 		fichier.write(vexCode)
 		fichier.close()
 		self.createModel()
+
+
+	def nomFile(self):
+		self.nomArchive.setText(self.listNom.currentText())
+
+	def close(self):
+		self.userfilename.close()
+
+	def cancelF(self):
+		self.cancel = 1
+		self.userfilename.close()	
+
+	def connectPopUp(self):
+		self.listNom.activated.connect(self.nomFile)
+		self.okButton.clicked.connect(self.close)
+		self.cancelB.clicked.connect(self.cancelF)
+
 
 	def loadF(self,index):
 		filePath = self.model.filePath(index)
@@ -116,9 +163,12 @@ class yVex(QWidget):
 
 
 	def buttonConnect(self):
+		#save
+		self.saveCodeIn.clicked.connect(self.saveCodeInF)
+		#load
 		self.tree.doubleClicked.connect(self.loadF)
 		self.list.doubleClicked.connect(self.loadF)
-
+		#txt
 		self.tree.clicked.connect(self.afficheTxt)
 		self.list.clicked.connect(self.afficheTxt)
 		#autre
