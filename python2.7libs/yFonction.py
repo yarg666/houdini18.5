@@ -103,7 +103,6 @@ def yXml(pipe):
 	if len(xprojet)==0:
 		xprojet = etree.Element("projet",{"name":projet})
 		tronc.append(xprojet)
-		print xprojet.attrib("name")
 
 	tree.write(xmlPath)
 	# recuperrer xinfo
