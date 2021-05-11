@@ -34,6 +34,7 @@ def mayaExport():
 	if "MAYA_EXPORT" not in nameListe:
 		mayaExport =obj.createNode("geo","MAYA_EXPORT")
 		mayaExport.setColor(red)
+		mayaExport.setPosition([17.5,7])
 		#maya scale
 		parm_group = mayaExport.parmTemplateGroup()
 		parm_folder = hou.FolderParmTemplate("folder","MAYA_SCALE")

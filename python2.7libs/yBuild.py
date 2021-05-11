@@ -84,6 +84,9 @@ def yBuild():
     endFrame = os.getenv('FE')
     pim = shot.get("pim")
     dim = shot.get("dim")
+#    resx = shot.get("Render_Rez_X")
+#    resy = shot.get("Render_Rez_Y")
+#    pixelRatio = shot.get("pixelAspect")
     #shot description var
     description = shot.get("description")
     #set parm
@@ -92,6 +95,7 @@ def yBuild():
     node.parm("pimDim1").set(pim)   
     node.parm("pimDim2").set(dim)
     node.parm("shot").set(description)
+    
     #get asset path last version
     #delete and recreate import ftrack with all last asset
     #get cam path last version
@@ -101,26 +105,76 @@ def yBuild():
     
     query = 'Asset where parent.parent.parent.name is "{}" and '
     query += 'parent.parent.name is "{}" and parent.name is "{}" and '
-    query += '(type.name is "Geometry")'
+    query += '(type.name is "Camera" or type.name is "Geometry")'
     query = query.format(projName, seqName, shotName)
     assets = sessionFT.query(query)
     obj = hou.node("/obj")
-    #destroy cgev import 
-    try :
-        hou.node('/obj/CGEV_IMPORT').destroy()
-    except : 
-        pass
-    #create cgevf import 
-    cgevImport = obj.createNode("geo","CGEV_IMPORT")
+    children = obj.children()
+    childName=[]
+    
+    for i in children :
+        childName.append(i.name())
+        
+    if "HOUDINI_SCALE" not in childName:
+        houdiniScale=obj.createNode("null","HOUDINI_SCALE")#houdini scale
+        houdiniScale.parm("scale").set("0.01")
+        houdiniScale.setPosition([3,10])
+    if "CG_IMPORT" in childName:
+        hou.node("/obj/CG_IMPORT").destroy()
+
+    cgevImport = hou.node("/obj/HOUDINI_SCALE/").createOutputNode("geo","CG_IMPORT")
+    cgevImport.setPosition([5,7])
+    importMerge = cgevImport.createNode("merge","collect_abc")        
+            
     # Asset loop
     for asset in assets:
         # Get last version
         version = asset['versions'][-1]
         # Last version's components loop
         for component_obj in version['components']:
-            # Only care about the mayaComponent component
+            # Only care about the alembic component
             if component_obj['name'] == 'alembic':
                 file_path = component_obj['component_locations'][0]
                 file_path = file_path['resource_identifier'].replace('\\', '/')
+                if "camera" in file_path:
+                    #create camera
+                    if asset.values()[0] in childName:
+                        hou.node("/obj/"+asset.values()[0]).destroy()
+                    camArch =hou.node("/obj/HOUDINI_SCALE/").createOutputNode("alembicarchive",asset.values()[0])
+                    camArch.parm("fileName").set(file_path)
+                    camArch.setPosition([0.8,7])
+                    camArch.parm("buildHierarchy").pressButton()
+                    #resolution
+                    #imagePlane
+                    print ("cam")
+                else :
+                    #create geometry
+                    newAbc = cgevImport.createNode("alembic",asset.values()[0])
+                    newAbc.moveToGoodPosition()
+                    newAbc.parm("fileName").set(file_path)
+                    importMerge.setNextInput(newAbc)
                 print file_path
                 break
+    #get image plane 
+    for asset in assets:
+        # Get last version
+        version = asset['versions'][-1]
+        # Last version's components loop
+        for component_obj in version['components']:
+            # Only care about the mayaComponent component
+            if component_obj['name'] == 'imagePlanePath':
+                file_path = component_obj['component_locations'][0]
+                file_path = file_path['resource_identifier'].replace('\\', '/')
+                print file_path
+                break                
+    #set camera background et resolution
+    list = hou.node("/obj").allSubChildren()
+    for i in list:
+        if i.type().name()== "cam":
+            i.parm("vm_background").set(file_path)
+            break
+                
+    
+    importMerge.moveToGoodPosition()
+    nullImport = importMerge.createOutputNode("null","out_CG_IMPORT")
+    

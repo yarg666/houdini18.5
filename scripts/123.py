@@ -14,7 +14,8 @@ env = obj.createNode("envlight","envlight")
 env.move(hou.Vector2(5.0,3.0))
 env.setParms({"env_map":"$HFS/houdini/pic/hdri/HDRIHaven_kiara_5_noon_2k.rat"})
 
-
+build = obj.createNode("CG::sceneBuilder::1.1","SCENE_BUILDER")
+build.setPosition([7,10.5])
 
 
 for i in myListe:
