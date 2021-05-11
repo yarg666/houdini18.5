@@ -84,9 +84,9 @@ def yBuild():
     endFrame = os.getenv('FE')
     pim = shot.get("pim")
     dim = shot.get("dim")
-#    resx = shot.get("Render_Rez_X")
-#    resy = shot.get("Render_Rez_Y")
-#    pixelRatio = shot.get("pixelAspect")
+    resx = shot.get("Render_Rez_X")
+    resy = shot.get("Render_Rez_Y")
+    pixelRatio = shot.get("pixelAspect")
     #shot description var
     description = shot.get("description")
     #set parm
@@ -144,6 +144,9 @@ def yBuild():
                     camArch.parm("fileName").set(file_path)
                     camArch.setPosition([0.8,7])
                     camArch.parm("buildHierarchy").pressButton()
+                    camArch.parm("resx").set(resx)
+                    camArch.parm("resy").set(resy)
+                    camArch.parm("aspect").set(pixelRatio)
                     #resolution
                     #imagePlane
                     print ("cam")
@@ -177,4 +180,66 @@ def yBuild():
     
     importMerge.moveToGoodPosition()
     nullImport = importMerge.createOutputNode("null","out_CG_IMPORT")
+    
+
+
+
+
+    import hou
+    from cgev.common import texts
+    from cgev.pipeline.data import session
+    from cgev.pipeline.process import server
+
+
+def getValues(project, sequence, shot, task):
+
+    projectObjAM = server.getProject(project)
+    sequenceObjAm = server.getSequence(project, sequence)
+    shotObjAM = server.getShot(project, sequence, shot)
+    taskObjAM = server.getTask2(project, sequence, shot, task)
+
+    projectName = projectObjAM.getName()
+    projectId = projectObjAM.getId()
+    sequenceName = sequenceObjAm.getName()
+    sequenceId = sequenceObjAm.getId()
+    shotName = shotObjAM.getName()
+    shotId = shotObjAM.getId()
+
+    if taskObjAM is not None:
+        taskName = taskObjAM.getName().lower()
+        taskId = taskObjAM.getId()
+    else:
+        taskName = task
+        taskId = ""
+
+    firstFrame = shotObjAM.getFrameStart()
+    lastFrame = shotObjAM.getFrameEnd()
+
+    return {texts.projectName: projectName,
+            texts.projectId: projectId,
+            texts.sequenceName: sequenceName,
+            texts.sequenceId: sequenceId,
+            texts.shotName: shotName,
+            texts.shotId: shotId,
+            texts.taskName: taskName,
+            texts.taskId: taskId,
+            texts.firstFrame: firstFrame,
+            texts.lastFrame: lastFrame,
+            }
+scene_path = hou.hipFile.path()
+project = scene_path.split('/')[4]
+sequence, shot = scene_path.split('/')[5].split('-')
+task = scene_path.split('/')[7]
+
+values = getValues(project, sequence, shot, task)
+context = session.getContext()
+context.setContext(values)
+session.setContext(context)
+
+def fxTemp():
+    import hou
+
+    obj = hou.node("/obj")
+
+    newFx = obj.createNode("geometry","newFx")
     
