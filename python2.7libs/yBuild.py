@@ -1,67 +1,55 @@
-#librairies
-import os
+import y
+reload(y)
+
+import mayaExport
+reload(mayaExport)
+
+def setCon():
+    from cgev.pipeline.appconnector.connectorMenu import MenuHandler; MenuHandler.openShotWindow()
+def saveWip():
+    from cgev.pipeline.appconnector.connectorMenu import MenuHandler; MenuHandler.saveShotWindow(False)
+
 import hou
-import ftrack
 
-#variables
+from cgev.common import texts
+from cgev.pipeline.data import session
+from cgev.pipeline.process import server
 
+def getValues(project, sequence, shot, task):
 
-node = hou.pwd()
+    projectObjAM = server.getProject(project)
+    sequenceObjAm = server.getSequence(project, sequence)
+    shotObjAM = server.getShot(project, sequence, shot)
+    taskObjAM = server.getTask2(project, sequence, shot, task)
 
-def range(node):
+    projectName = projectObjAM.getName()
+    projectId = projectObjAM.getId()
+    sequenceName = sequenceObjAm.getName()
+    sequenceId = sequenceObjAm.getId()
+    shotName = shotObjAM.getName()
+    shotId = shotObjAM.getId()
 
-	shotId = os.getenv('FTRACK_SHOTID')
-
-	shot = ftrack.Shot(id=shotId)
-
-	#range
-	startFrame = os.getenv('FS')
-	endFrame = os.getenv('FE')
-	print startFrame
-	print endFrame
-	pim = shot.get("pim")
-	dim = shot.get("dim")
-	print pim
-	print dim
-
-	node.parm("range1").set(startFrame)
-	node.parm("range2").set(endFrame)
-	node.parm("pimDim1").set(pim)	
-	node.parm("pimDim2").set(dim)
-
-
-
-
-"""from ftrackplugin import ftrackDialogs
-
-def publishA7(A7):
-    A7 = hou.pwd()
-    my_asset_name = A7.parm("name").eval()
-    asset_type = A7.parm("datatype").eval()
-    if asset_type=="abc":
-        publish_type="fx"
+    if taskObjAM is not None:
+        taskName = taskObjAM.getName().lower()
+        taskId = taskObjAM.getId()
     else:
-        publish_type="hcache"
-    window = ftrackDialogs.ftrackPublishAssetQt(assetNode=A7)
-    window.setAssetType(publish_type)
-    window.setAssetName(my_asset_name)
-    window.emit_published.connect(partial(getPublishResult,A7))
-    window.show()
-    
-    
-def getPublishResult(A7,publishedComponents):
-    #A7=hou.pwd()
-    if publishedComponents :
-        A7.parm("publishlock").set(1)
-        houCgevRender.cacheXml(A7)
-        houCgevRender.cacheXmlCheck(A7)
-        houCgevRender.setColor(A7)
-        print "Publish Canceled success"
-    else:
-        print "Publish Canceled"
-    print "publishedComponents finished"
-    """
+        taskName = task
+        taskId = ""
 
+    firstFrame = shotObjAM.getFrameStart()
+    lastFrame = shotObjAM.getFrameEnd()
+
+    return {texts.projectName: projectName,
+            texts.projectId: projectId,
+            texts.sequenceName: sequenceName,
+            texts.sequenceId: sequenceId,
+            texts.shotName: shotName,
+            texts.shotId: shotId,
+            texts.taskName: taskName,
+            texts.taskId: taskId,
+            texts.firstFrame: firstFrame,
+            texts.lastFrame: lastFrame,
+            }
 
 def yBuild():
 
@@ -70,8 +58,20 @@ def yBuild():
     import ftrack
     from cgev.pipeline.data import session
     
+    
+    scene_path = hou.hipFile.path()
+    project = scene_path.split('/')[4]
+    sequence, shot = scene_path.split('/')[5].split('-')
+    task = scene_path.split('/')[7]
+    
+    values = getValues(project, sequence, shot, task)
+    context = session.getContext()
+    context.setContext(values)
+    session.setContext(context)
     #current node
     node = hou.pwd()
+    #set context
+    #...
     #shot id
     shotId = os.getenv('FTRACK_SHOTID')
     shot = ftrack.Shot(id=shotId)
@@ -105,7 +105,7 @@ def yBuild():
     
     query = 'Asset where parent.parent.parent.name is "{}" and '
     query += 'parent.parent.name is "{}" and parent.name is "{}" and '
-    query += '(type.name is "Camera" or type.name is "Geometry")'
+    query += '(type.name is "Camera" or type.name is "Geometry" or type.name is "Animation")'
     query = query.format(projName, seqName, shotName)
     assets = sessionFT.query(query)
     obj = hou.node("/obj")
@@ -144,9 +144,6 @@ def yBuild():
                     camArch.parm("fileName").set(file_path)
                     camArch.setPosition([0.8,7])
                     camArch.parm("buildHierarchy").pressButton()
-                    camArch.parm("resx").set(resx)
-                    camArch.parm("resy").set(resy)
-                    camArch.parm("aspect").set(pixelRatio)
                     #resolution
                     #imagePlane
                     print ("cam")
@@ -155,7 +152,9 @@ def yBuild():
                     newAbc = cgevImport.createNode("alembic",asset.values()[0])
                     newAbc.moveToGoodPosition()
                     newAbc.parm("fileName").set(file_path)
-                    importMerge.setNextInput(newAbc)
+                    group = newAbc.createOutputNode("group",asset.values()[0]+"_grp")
+                    group.parm("crname").set(asset.values()[0])
+                    importMerge.setNextInput(group)
                 print file_path
                 break
     #get image plane 
@@ -175,71 +174,28 @@ def yBuild():
     for i in list:
         if i.type().name()== "cam":
             i.parm("vm_background").set(file_path)
+            i.parm("resx").set(resx)
+            i.parm("resy").set(resy)
+            i.parm("aspect").deleteAllKeyframes()
+            i.parm("aspect").set(pixelRatio)
             break
                 
     
     importMerge.moveToGoodPosition()
     nullImport = importMerge.createOutputNode("null","out_CG_IMPORT")
     
-
-
-
-
-    import hou
-    from cgev.common import texts
-    from cgev.pipeline.data import session
-    from cgev.pipeline.process import server
-
-
-def getValues(project, sequence, shot, task):
-
-    projectObjAM = server.getProject(project)
-    sequenceObjAm = server.getSequence(project, sequence)
-    shotObjAM = server.getShot(project, sequence, shot)
-    taskObjAM = server.getTask2(project, sequence, shot, task)
-
-    projectName = projectObjAM.getName()
-    projectId = projectObjAM.getId()
-    sequenceName = sequenceObjAm.getName()
-    sequenceId = sequenceObjAm.getId()
-    shotName = shotObjAM.getName()
-    shotId = shotObjAM.getId()
-
-    if taskObjAM is not None:
-        taskName = taskObjAM.getName().lower()
-        taskId = taskObjAM.getId()
-    else:
-        taskName = task
-        taskId = ""
-
-    firstFrame = shotObjAM.getFrameStart()
-    lastFrame = shotObjAM.getFrameEnd()
-
-    return {texts.projectName: projectName,
-            texts.projectId: projectId,
-            texts.sequenceName: sequenceName,
-            texts.sequenceId: sequenceId,
-            texts.shotName: shotName,
-            texts.shotId: shotId,
-            texts.taskName: taskName,
-            texts.taskId: taskId,
-            texts.firstFrame: firstFrame,
-            texts.lastFrame: lastFrame,
-            }
-scene_path = hou.hipFile.path()
-project = scene_path.split('/')[4]
-sequence, shot = scene_path.split('/')[5].split('-')
-task = scene_path.split('/')[7]
-
-values = getValues(project, sequence, shot, task)
-context = session.getContext()
-context.setContext(values)
-session.setContext(context)
-
 def fxTemp():
     import hou
 
     obj = hou.node("/obj")
 
-    newFx = obj.createNode("geometry","newFx")
+    newFx = obj.createNode("geo","newFx")
+    newFx.setPosition([0,10])
+    cgInput=newFx.createNode("cgIn","inputAsset")
+    cgRender = cgInput.createOutputNode("renderGeo")
+    fxName = cgRender.name()[:-6]
+    newFx.setName(fxName+"_fx")
+    null = hou.node("/obj/"+newFx.name()+"/"+fxName)
+    null.moveToGoodPosition()
+    null.parm("newparameter").pressButton()
     
