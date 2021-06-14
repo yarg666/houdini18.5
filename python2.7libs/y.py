@@ -26,6 +26,18 @@ print ("***for help type: help(y) ***")
 import hou
 import random
 
+
+def getCam():
+	list = hou.node("/obj").allSubChildren()
+	for i in list:
+	    if i.type().name()== "cam":
+	        camPath= i.path()
+	        break
+	    else :
+	        camPath="/obj/cam1"
+	        
+	return camPath        
+
 def cgevResetTheDay():
 
 	import nodesearch
