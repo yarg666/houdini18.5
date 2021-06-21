@@ -32,7 +32,7 @@ hBank="houdini_bank"
 yType=["FLIP","RBD","POP","VOLUME","SOP_VEX","VELLUM","TERRAIN","CROWD","MATERIAUX","RND","VELOCITE"]
 #vBank
 vBank="vex_bank"
-yChoisirVex=["favoris","penseBete","yLib","entagma","jTomori","opara","rotScaleTrans","velocite","syntaxe"]
+yChoisirVex=["favoris","penseBete","yLib","entagma","jTomori","opara","rotScaleTrans","velocite","syntaxe","python"]
 
 #PIPE
 yDictPipe = {
